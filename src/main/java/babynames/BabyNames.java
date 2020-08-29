@@ -28,9 +28,6 @@ public class BabyNames {
         CSVParser parser = null;
         try {
             parser = CSVParser.parse(file, Charset.defaultCharset(), CSVFormat.EXCEL
-                    // .withHeader("TimeEST", "TemperatureF", "Dew PointF", "Humidity", "Sea Level PressureIn", "VisibilityMPH", "Wind Direction", "Wind SpeedMPH", "Gust SpeedMPH", "PrecipitationIn", "Events", "Conditions", "WindDirDegrees", "DateUTC")
-                    //  .withSkipHeaderRecord()
-                    //.with
                     .withTrim());
         } catch (IOException e) {
             System.out.println("error in reading csv file ");
@@ -41,12 +38,9 @@ public class BabyNames {
     public void readMultiCSVFile(String directoryName) throws IOException {
 
         List<File> filesInFolder = getFilesFromDirectory(directoryName);
-        //DirectoryResource dr = new DirectoryResource();
-        //for(File f : dr.selectedFiles()){
         for(File file: filesInFolder){
             System.out.println("fileName = " + file.getName());
             CSVParser parser = createParser(file);
-            System.out.println("fileName = " + file.getName());
             totalBirth(parser);
         }
     }
@@ -85,12 +79,6 @@ public class BabyNames {
         System.out.println("rank "+rank);
         rank = getRank(1971, "Frank", "M");
         System.out.println("rank "+rank);
-       /* rank = getRank(2014, "Mason", "M");
-        System.out.println("rank "+rank);
-        rank = getRank(2012, "Emma", "F");
-        System.out.println("Emma rank "+rank);
-        rank = getRank(2012, "Isabella", "F");
-        System.out.println("Isabella rank "+rank);*/
     }
     
     public void testGetNametoRank(){
@@ -98,8 +86,6 @@ public class BabyNames {
         System.out.println("name "+name);
         name = getNametoRank(1982, 450, "M");
         System.out.println("name "+name);
-        //name = getNametoRank(2014, 5, "M");
-        //System.out.println("name "+name);
     }
     
     public String getNametoRank(int year, int rank, String sex){
@@ -127,10 +113,8 @@ public class BabyNames {
     }
     
     public void testWhatIsNameInYear(){
-        //String name = whatIsNameInYear("Isabella", 2012, 2014, "F");
         String name = whatIsNameInYear("Susan", 1972, 2014, "F");
         name = whatIsNameInYear("Owen", 1974, 2014, "M");
-        //System.out.println("name "+name);
     }
     
     public String yearOfHighestRank(String directoryName, String name, String gender) throws IOException {
@@ -158,17 +142,9 @@ public class BabyNames {
         int amount = 0;
 
         List<File> filesInFolder = getFilesFromDirectory(directoryName);
-        //DirectoryResource dr = new DirectoryResource();
-        //for(File f : dr.selectedFiles()){
         for(File file: filesInFolder){
             System.out.println("fileName = " + file.getName());
             CSVParser parser = createParser(file);
-
-        //DirectoryResource dr = new DirectoryResource();
-        //for(File f : dr.selectedFiles()){
-            //System.out.println("fileName = " + f.getName());
-           // FileResource fr = new FileResource(f);
-           // System.out.println("year = " + f.getName().substring(3, 7));
             averageRank += (double) getRank(Integer.parseInt(file.getName().substring(3, 7)), name, gender, parser);
             amount++;
         }
@@ -181,14 +157,12 @@ public class BabyNames {
     }
     public void testAverageRank(String directoryName) throws IOException {
         double res = getAverageRank(directoryName, "Robert", "M");
-        //System.out.println(res);
-        //res = getAverageRank("Robert", "M");
-        //System.out.println(res);
+        System.out.println(res);
     }
     
     public void testgetTotalBirthsRankedHigher(){
         int res = getTotalBirthsRankedHigher(1990, "Drew", "M");
-        //System.out.println("name "+res);
+        System.out.println("name "+res);
     }
     
     public int getTotalBirthsRankedHigher(int year, String name, String gender){
@@ -221,7 +195,6 @@ public class BabyNames {
         int amountBoysNames= 0;
         int amountGirls = 0;
         int amountGirlsNames = 0;
-        //for(CSVRecord record: fr.getCSVParser(false)){
         for(CSVRecord record: parser){
             if(record.get(1).equals("F")){
                 amountGirls += Integer.parseInt(record.get(2));
@@ -239,10 +212,7 @@ public class BabyNames {
 
     public static void main(String[] args) throws IOException {
         BabyNames babyNames = new BabyNames();
-        //babyNames.readMultiCSVFile("us_babynames/us_babynames_test");
         double res = babyNames.getAverageRank("us_babynames/us_babynames_by_year", "Mason", "M");
-       // us_babynames_by_year
-        //System.out.println(res);
     }
     
 }

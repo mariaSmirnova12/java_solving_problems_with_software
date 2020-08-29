@@ -1,20 +1,16 @@
 package dna;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class StrandOfDna {
-    //String dna;
-    List<String> genes; //, stopCodons;
+    List<String> genes;
     String[] stopCodons;
     String startCodon;
 
     public StrandOfDna(){
-      //  this.dna = dna;
         genes = new ArrayList<String>();
         startCodon = "atg";
-        //stopCodons = Arrays.asList("taa", "tga", "tag");
         stopCodons = new String[]{"taa", "tga", "tag"};
     }
 
@@ -58,13 +54,9 @@ public class StrandOfDna {
     }
     public int findStopCodon(String dna, int startInd){
         int endInd1 = findEndOfGene(dna,startInd+3, stopCodons[0]);
-        //System.out.println("endInd1= taa - "+endInd1);
         int endInd2 = findEndOfGene(dna,startInd+3, stopCodons[1]);
-        //System.out.println("endInd2= tga - "+endInd2);
         int endInd3 = findEndOfGene(dna,startInd+3, stopCodons[2]);
-        //System.out.println("endInd3= tag - "+endInd3);
         endInd1 = Math.min(endInd1, Math.min(endInd2, endInd3));
-        //System.out.println("endInd= "+endInd1);
         return endInd1;
     }
     public double findCGRatio(String dna){
@@ -78,7 +70,6 @@ public class StrandOfDna {
         return (double)count/dna.length();
     }
 
-    //return gene from a string of DNA (return substring between the start codon “ATG” and first stop codon “TAA” if it is a multiple of 3) else return empty string
     public List<String> findGenes(String dna){
         char ch = dna.charAt(0);
         boolean hasUppercase = false;
@@ -121,8 +112,6 @@ public class StrandOfDna {
         return count;
     }
     public static void main(String[] args) {
-        //String str = "gatgctataat";
-        //brca1line.fa
         String str = "ATGTAAGATGCCCTAGT";
         //String str = "AATGCTAGGGTAATATGGT";
         StrandOfDna strand = new StrandOfDna();
